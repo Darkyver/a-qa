@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-APP_DIR="/opt/app"
+APP_DIR="/app/a-qa"
 CONTAINER_NAME="vaadin-app"
 BRANCH="main"
 
