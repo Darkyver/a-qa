@@ -136,4 +136,13 @@
         </plugins>
     </build>
 
+
+    <profiles>
+        <profile>
+            <id>production</id>
+            <properties>
+                <vaadin.productionMode>true</vaadin.productionMode>
+            </properties>
+        </profile>
+    </profiles>
 </project>
