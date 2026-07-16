@@ -1,0 +1,5 @@
+import '@vaadin/vertical-layout/src/vaadin-vertical-layout.js';
+import '@vaadin/text-field/src/vaadin-text-field.js';
+import '@vaadin/tooltip/src/vaadin-tooltip.js';
+import '@vaadin/button/src/vaadin-button.js';
+import 'Frontend/generated/jar-resources/disableOnClickFunctions.js';
