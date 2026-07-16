@@ -17,7 +17,9 @@ docker rm $CONTAINER_NAME 2>/dev/null || true
 
 echo "🔨 Сборка в Docker..."
 docker build -f Dockerfile.build -t $BUILD_CONTAINER . --pull=false
-docker run --rm -v $APP_DIR/target:/app/target $BUILD_CONTAINER
+
+echo "📦 Извлечение JAR из контейнера..."
+docker run --rm -v $APP_DIR/target:/output $BUILD_CONTAINER cp /app/target/*.jar /output/
 
 echo "🐳 Сборка runtime образа..."
 docker build -t $CONTAINER_NAME . --pull=false
@@ -29,4 +31,4 @@ docker run -d \
   -p 8080:8080 \
   $CONTAINER_NAME
 
-echo "✅ Готово!"
+echo "✅ Готово! http://$(hostname -I | awk '{print $1}'):8080"
