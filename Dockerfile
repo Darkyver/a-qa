@@ -1,5 +1,5 @@
 # Dockerfile
-FROM eclipse-temurin:17-jdk
+FROM openjdk:21-jdk-slim
 COPY target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
