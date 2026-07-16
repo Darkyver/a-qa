@@ -2,5 +2,5 @@
 FROM maven:3.9-eclipse-temurin-17
 WORKDIR /app
 COPY . .
-RUN mvn clean package -Pproduction -DskipTests
+RUN mvn clean package -Dvaadin.force.production.build=true -DskipTests
 CMD ["cp", "-r", "/app/target", "/output/"]
