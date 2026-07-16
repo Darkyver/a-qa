@@ -1,13 +1,11 @@
 #!/bin/bash
 set -e
 
-APP_DIR="/opt/app"
 CONTAINER_NAME="vaadin-app"
 BUILD_CONTAINER="vaadin-builder"
 BRANCH="main"
 
 echo "🔄 Git pull..."
-cd $APP_DIR
 git checkout $BRANCH
 git pull origin $BRANCH
 
