@@ -4,6 +4,7 @@ set -e
 CONTAINER_NAME="vaadin-app"
 BUILD_CONTAINER="vaadin-builder"
 BRANCH="main"
+CURRENT_DIR=$(pwd)  # Текущая папка = a-qa
 
 echo "🔄 Git pull..."
 git checkout $BRANCH
@@ -17,7 +18,7 @@ echo "🔨 Сборка в Docker..."
 docker build -f Dockerfile.build -t $BUILD_CONTAINER . --pull=false
 
 echo "📦 Извлечение JAR из контейнера..."
-docker run --rm -v $APP_DIR/target:/output $BUILD_CONTAINER cp /app/target/*.jar /output/
+docker run --rm -v $CURRENT_DIR/target:/output $BUILD_CONTAINER sh -c "cp /app/target/*.jar /output/"
 
 echo "🐳 Сборка runtime образа..."
 docker build -t $CONTAINER_NAME . --pull=false
