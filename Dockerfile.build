@@ -1,5 +1,4 @@
-# Dockerfile.build
-FROM maven:3.9-eclipse-temurin-21
+FROM vaadin-builder-base
 WORKDIR /app
 COPY . .
 RUN mvn clean package -Dvaadin.force.production.build=true -DskipTests

@@ -3,8 +3,9 @@ set -e
 
 CONTAINER_NAME="vaadin-app"
 BUILD_CONTAINER="vaadin-builder"
+BASE_BUILDER="vaadin-builder-base"
 BRANCH="main"
-CURRENT_DIR=$(pwd)  # Текущая папка = a-qa
+CURRENT_DIR=$(pwd)
 
 echo "🔄 Git pull..."
 git checkout $BRANCH
@@ -14,10 +15,16 @@ echo "🛑 Остановка старого контейнера..."
 docker stop $CONTAINER_NAME 2>/dev/null || true
 docker rm $CONTAINER_NAME 2>/dev/null || true
 
+# Проверяем, есть ли базовый образ
+if ! docker image inspect $BASE_BUILDER >/dev/null 2>&1; then
+    echo "🏗️ Сборка базового образа (один раз)..."
+    docker build -f Dockerfile.builder-base -t $BASE_BUILDER . --pull=false
+fi
+
 echo "🔨 Сборка в Docker..."
 docker build -f Dockerfile.build -t $BUILD_CONTAINER . --pull=false
 
-echo "📦 Извлечение JAR из контейнера..."
+echo "📦 Извлечение JAR..."
 docker run --rm -v $CURRENT_DIR/target:/output $BUILD_CONTAINER sh -c "cp /app/target/*.jar /output/"
 
 echo "🐳 Сборка runtime образа..."
